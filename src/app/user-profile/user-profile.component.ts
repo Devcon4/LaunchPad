@@ -1,4 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CurrentProfileStateService } from '../current-profile-state.service';
+import { interval, of } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
+import { PostStateService } from '../post-state.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,9 +13,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(public currentProfileState: CurrentProfileStateService, public postState: PostStateService, private dataService: DataService) { }
 
   ngOnInit() {
+    this.dataService.getPostsByUserId(0);
   }
-
 }

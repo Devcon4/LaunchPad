@@ -1,3 +1,8 @@
-<p>
-  user-profile works!
-</p>
+<div class="wrapper">
+    <div class="panel">
+        <div class="user-image"></div>
+    </div>
+    <div class="content">
+        <app-profile-post *ngFor="let post of postState.subject | async" [post]="post"></app-profile-post>
+    </div>
+</div>

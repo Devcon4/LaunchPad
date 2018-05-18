@@ -4,8 +4,14 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const routes: Routes = [
   {
-    path: '*',
-    redirectTo: 'profile'
+    path: '**',
+    redirectTo: 'profile',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
+    redirectTo: 'profile',
+    pathMatch: 'full'
   },
   {
     path: 'profile',

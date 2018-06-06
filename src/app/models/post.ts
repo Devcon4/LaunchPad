@@ -1,3 +1,5 @@
+import { MaxLengthValidator } from "@angular/forms";
+
 export class Post {
     public title: string;
     public shortDesc: string;

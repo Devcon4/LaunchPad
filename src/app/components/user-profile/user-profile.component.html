@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <div class="center">
+        <div class="panel">
+            <div class="user-image"></div>
+            <hr>
+        </div>
+        <div class="content">
+            <app-profile-post *ngFor="let post of postState.postList.subject | async" [post]="post"></app-profile-post>
+        </div>
+    </div>
+</div>

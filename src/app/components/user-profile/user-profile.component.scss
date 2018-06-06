@@ -1,0 +1,31 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.center {
+    width: 50vw;
+}
+
+.panel {
+    height: 25vh;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-bottom: 32px;
+
+    .user-image {
+        width: 250px;
+        height: 250px;
+        background-color: darken(white, 15%);
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+    }
+
+    hr {
+        width: 50vw;
+        position: absolute;
+        border: 1px solid darken(white, 15%);
+    
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Post } from '../../models/post';
 import { ProfileService } from '../../firebaseDataAccessLayer/profile.service';
 import { Profile } from '../../models/profile';
@@ -6,7 +6,9 @@ import { Profile } from '../../models/profile';
 @Component({
   selector: 'app-profile-post',
   templateUrl: './profile-post.component.html',
-  styleUrls: ['./profile-post.component.scss']
+  styleUrls: ['./profile-post.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+  
 })
 export class ProfilePostComponent implements OnInit {
 

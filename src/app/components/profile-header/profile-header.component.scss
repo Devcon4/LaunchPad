@@ -1,0 +1,36 @@
+
+.panel {
+    min-height: 250px;
+    height: 25vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 32px;
+
+    .details {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        p {
+            flex: 1;
+        }
+    }
+    .details-spacer {
+        flex: 1;
+    }
+
+    .user-image {
+        width: 250px;
+        height: 250px;
+        background-color: darken(white, 15%);
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+    }
+
+}
+    hr {
+        width: 50vw;
+        border-style: none;
+        border: 1px solid darken(white, 15%);
+    }

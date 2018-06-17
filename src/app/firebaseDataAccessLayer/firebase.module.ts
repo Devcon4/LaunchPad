@@ -1,22 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GenericStateServiceService } from './generic-state-service.service';
 import { environment } from '../../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { PostService } from './post.service';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   imports: [
     CommonModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
-  declarations: [
-    GenericStateServiceService,
-    PostService
-  ],
-  exports: [
-    GenericStateServiceService,
-    PostService
+  providers: [
+    PostService,
   ]
 })
 export class FirebaseModule { }

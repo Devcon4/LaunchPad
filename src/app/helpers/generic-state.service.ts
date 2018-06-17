@@ -4,4 +4,4 @@ import { Action } from '../helpers/action';
 @Injectable({
   providedIn: 'root'
 })
-export class GenericStateServiceService<T> extends Action<T> {}
+export class GenericStateService<T> extends Action<T> {}

@@ -1,18 +1,19 @@
+import { MatCardModule, MatAutocompleteModule, MatCheckboxModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { CurrentProfileStateService } from './firebaseDataService/current-profile-state.service';
-import { PipeablePipe } from './pipes/pipeable.pipe';
-import { ProfilePostComponent } from './components/profile-post/profile-post.component';
-import { PostStateService } from './firebaseDataService/post-state.service';
 import { HttpModule } from '@angular/http';
 
-import { MatCardModule, MatAutocompleteModule, MatCheckboxModule, MatMenuModule } from '@angular/material';
+import { AppRoutingModule } from './app-routing.module';
+import { FirebaseModule } from './firebaseDataAccessLayer/firebase.module';
+
+import { PipeablePipe } from './pipes/pipeable.pipe';
+
+import { AppComponent } from './app.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ProfilePostComponent } from './components/profile-post/profile-post.component';
 import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
-import { FirebaseModule } from './firebaseDataService/firebase.module';
+import { HeaderComponent } from './components/header/header.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,12 @@ import { FirebaseModule } from './firebaseDataService/firebase.module';
     UserProfileComponent,
     PipeablePipe,
     ProfilePostComponent,
-    ProfileHeaderComponent
+    ProfileHeaderComponent,
+    HeaderComponent,
+    LoginComponent
   ],
   imports: [
+    FirebaseModule,
     BrowserModule,
     AppRoutingModule,
     HttpModule,
@@ -30,12 +34,9 @@ import { FirebaseModule } from './firebaseDataService/firebase.module';
     MatCardModule,
     MatAutocompleteModule,
     MatMenuModule,
-    FirebaseModule
+    MatIconModule
   ],
-  providers: [
-    CurrentProfileStateService,
-    PostStateService
-  ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

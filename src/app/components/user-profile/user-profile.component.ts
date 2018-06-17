@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { interval, of } from 'rxjs';
 import { concatMap, tap } from 'rxjs/operators';
-import { PostStateService } from '../../firebaseDataService/post-state.service';
-import { PostService } from '../../firebaseDataService/post.service';
+import { PostService } from '../../firebaseDataAccessLayer/post.service';
+import { Post } from '../../models/post';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,9 +12,7 @@ import { PostService } from '../../firebaseDataService/post.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(public postState: PostStateService, private psotService: PostService) { }
+  constructor(public postService: PostService) { }
 
-  ngOnInit() {
-    this.psotService.collection.subject.subscribe(v => console.log(v));
-  }
+  ngOnInit() { }
 }

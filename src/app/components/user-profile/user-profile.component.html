@@ -1,11 +1,8 @@
 <div class="wrapper">
     <div class="center">
-        <div class="panel">
-            <div class="user-image"></div>
-            <hr>
-        </div>
+        <app-profile-header></app-profile-header>
         <div class="content">
-            <app-profile-post *ngFor="let post of postState.postList.subject | async" [post]="post"></app-profile-post>
+            <app-profile-post *ngFor="let post of postService.list.subject | async" [post]="post"></app-profile-post>
         </div>
     </div>
 </div>

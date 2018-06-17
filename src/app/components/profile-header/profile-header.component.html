@@ -1,3 +1,10 @@
-<p>
-  profile-header works!
-</p>
+<div class="panel">
+  <div class="details">
+    <p>{{(profileService.doc.subject | async)?.firstName}} {{(profileService.doc.subject | async)?.lastName}}</p>
+    <p>{{(profileService.doc.subject | async)?.role}}</p>
+    <p>{{(profileService.doc.subject | async)?.companyName}}</p>
+  </div>
+  <div class="user-image"></div>
+  <div class="details-spacer"></div>
+</div>
+<hr>

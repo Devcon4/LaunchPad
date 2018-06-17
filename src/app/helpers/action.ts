@@ -10,7 +10,6 @@ export class Action<T> implements Action<T> {
 
     private _subject: BehaviorSubject<T> = new BehaviorSubject(undefined);
 
-
     get state() {
         return this._subject.getValue();
     }

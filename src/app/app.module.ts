@@ -13,7 +13,6 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ProfilePostComponent } from './components/profile-post/profile-post.component';
 import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
 import { HeaderComponent } from './components/header/header.component';
-import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { LoginComponent } from './components/login/login.component';
     PipeablePipe,
     ProfilePostComponent,
     ProfileHeaderComponent,
-    HeaderComponent,
-    LoginComponent
+    HeaderComponent
   ],
   imports: [
     FirebaseModule,

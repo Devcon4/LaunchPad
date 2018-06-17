@@ -2,7 +2,7 @@ import { IIDable } from '../models/IIDable';
 import { Action, IActionable } from '../helpers/action';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { from, Observable, Subscription } from 'rxjs';
-import { first, tap, filter } from 'rxjs/operators';
+import { first, tap, filter, take } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 interface NetworkConfig<T extends IIDable, U> {
@@ -82,5 +82,15 @@ export abstract class Network<T extends IIDable> {
 
     deleteDoc(name: string) {
         this.collection.state.doc(name).delete();
+    }
+
+    upsertDoc(name: string, val: T) {
+        this.collection.state.doc(name).snapshotChanges().pipe(take(1)).subscribe(snap => {
+            if(snap.payload.exists) {
+                this.updateDoc(name, val);
+            } else {
+                this.createDoc(val, name);
+            }
+        });
     }
 }

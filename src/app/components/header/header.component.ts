@@ -12,9 +12,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(public authService: AuthService) { }
 
-  ngOnInit() {
-    this.authService.doc.subject.pipe(tap(x => console.log('header updated!')), tap(console.log)).subscribe();
-  }
+  ngOnInit() { }
 
   login() {
     this.authService.googleLogin();

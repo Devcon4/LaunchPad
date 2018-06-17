@@ -51,7 +51,6 @@ export class AuthService extends Network<User> {
 
   signOut() {
     this.afAuth.auth.signOut().then(() => {
-        this.router.navigate(['/']);
     });
   }
 }

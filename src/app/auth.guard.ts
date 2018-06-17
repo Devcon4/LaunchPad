@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './firebaseDataAccessLayer/auth.service';
 import { take, map, tap } from 'rxjs/operators';
@@ -9,18 +9,21 @@ import { take, map, tap } from 'rxjs/operators';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
       return this.authService.doc.subject.pipe(
         take(1),
-        map(u => !!u),
-        tap(loggedIn => {
-          if(!loggedIn) {
+        tap(u => {
+          if(!u) {
             console.log('not logged in!');
+          } else {
+            this.router.navigate(['/profile', {id: u.id}]);
           }
-      }));
+        }),
+        map(u => !!u),
+      );
   }
 }

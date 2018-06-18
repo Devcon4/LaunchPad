@@ -2,11 +2,12 @@ import { Injectable, Inject } from '@angular/core';
 import { Network } from './Network';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { User } from '../models/user';
-import { auth } from 'firebase';
+import { auth, User as FUser } from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfileService } from './profile.service';
 import { Profile } from '../models/profile';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ export class AuthService extends Network<User> {
     super({
       name: 'Users'
     }, afs);
+
+    this.afAuth.authState.subscribe(u => this.doc.state = this.toUser(u));
   }
 
   public googleLogin() {
@@ -24,25 +27,27 @@ export class AuthService extends Network<User> {
     return this.oAuthLogin(provider);
   }
 
+  private toUser(u: FUser = {} as FUser) {
+    return new User({
+      displayName: u.displayName,
+      email: u.email,
+      photoURL: u.photoURL,
+      id: u.uid
+    });
+  }
+
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        console.log(credential);
+        let user = this.toUser(credential.user);
 
-        let user = new User({
-          displayName: credential.user.displayName,
-          email: credential.user.email,
-          photoURL: credential.user.photoURL
-        });
-
-        this.upsertDoc(credential.user.uid, user);
+        this.createDoc(user, credential.user.uid);
         
         let profile = new Profile({
-          firstName: credential.user.displayName.split(' ')[0],
-          lastName: credential.user.displayName.split(' ')[1]
+          displayName: credential.user.displayName,
         });
 
-        this.profileService.upsertDoc(credential.user.uid, profile);
+        this.profileService.createDoc(profile, credential.user.uid);
 
         this.getDoc(credential.user.uid);
         return user;

@@ -1,0 +1,23 @@
+<h4 mat-dialog-title>Edit profile</h4>
+<mat-dialog-content>
+  <form [formGroup]="profileForm">
+    <mat-form-field>
+      <input matInput placeholder="Full Name" formControlName="displayName" required>
+      <mat-error *ngIf="getControlErrors('displayName')?.pattern">Name must be format "First Last"</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Role" formControlName="role">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Company" formControlName="companyName">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea cols="3" matInput placeholder="Bio" formControlName="bio"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span></span>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button [disabled]="profileForm.invalid" [mat-dialog-close]="true" (click)="save()">Finish</button>
+  </mat-dialog-actions>

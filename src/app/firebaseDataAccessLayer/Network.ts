@@ -1,23 +1,23 @@
 import { IIDable } from '../models/IIDable';
-import { Action, IActionable } from '../helpers/action';
+import { Action } from '../helpers/action';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { from, Observable, Subscription } from 'rxjs';
 import { first, tap, filter, take } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 interface NetworkConfig<T extends IIDable, U> {
-    doc?: IActionable<T>;
-    list?: IActionable<T[]>;
+    doc?: Action<T>;
+    list?: Action<T[]>;
     name: string;
     parent?: U;
 }
 
 export abstract class Network<T extends IIDable> {
 
-    collection: IActionable<AngularFirestoreCollection<T>> = new Action();
-    document: IActionable<AngularFirestoreDocument<T>> = new Action();
-    doc: IActionable<T> = new Action();
-    list: IActionable<T[]> = new Action();
+    collection: Action<AngularFirestoreCollection<T>> = new Action();
+    document: Action<AngularFirestoreDocument<T>> = new Action();
+    doc: Action<T> = new Action<T>();
+    list: Action<T[]> = new Action();
 
     private _docSub: Subscription;
 
@@ -55,7 +55,7 @@ export abstract class Network<T extends IIDable> {
         this.collection.subject.pipe(filter(d => !!d)).subscribe(d => d.snapshotChanges().subscribe(v => this.list.state = v.map(i => Object.assign({}, i.payload.doc.data(), {id: i.payload.doc.id}) as T)));
     }
 
-    getDoc(name: string, state?: IActionable<T>) {
+    getDoc(name: string, state?: Action<T>) {
         this.document.state = this.collection.state.doc(name);
         
         if(state) {
@@ -70,10 +70,11 @@ export abstract class Network<T extends IIDable> {
 
     createDoc(val: T, id?: string) {
         // Maybe auto fetch data? Would have to know if I needed to update list vs doc.
-        if (id) {
-            this.collection.state.doc(id).set(Object.assign({}, val))
+        if (!!id) {
+            this.collection.state.doc(id).set(Object.assign({}, val));
+        } else {
+            this.collection.state.add(Object.assign({}, val));
         }
-        this.collection.state.add(Object.assign({}, val));
     }
 
     updateDoc(name: string, val: T) {

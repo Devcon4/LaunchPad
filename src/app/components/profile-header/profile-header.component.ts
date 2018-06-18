@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PostService } from '../../firebaseDataAccessLayer/post.service';
 import { ProfileService } from '../../firebaseDataAccessLayer/profile.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs/operators';
-import { Profile } from '../../models/profile';
-import { Post } from '../../models/post';
+import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { EditProfileComponent } from '../modals/edit-profile/edit-profile.component';
+import { AuthService } from '../../firebaseDataAccessLayer/auth.service';
 
 @Component({
   selector: 'app-profile-header',
@@ -14,7 +15,13 @@ import { Post } from '../../models/post';
 })
 export class ProfileHeaderComponent implements OnInit {
 
-  constructor(public profileService: ProfileService, public postService: PostService, private route: ActivatedRoute) {
+  constructor(
+    public profileService: ProfileService,
+    public postService: PostService,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private authService: AuthService,
+  ) {
     route.params.subscribe(p => this.profileService.getDoc(p['id']));
   }
 
@@ -34,4 +41,16 @@ export class ProfileHeaderComponent implements OnInit {
     //   longDesc: 'A long description of a post.'
     // }));
   }
+
+  openProfileModal() {
+    this.dialog.open(EditProfileComponent, {
+      minWidth: '25vw'
+    });
+  }
+
+  isMyProfile = this.profileService.doc.subject.pipe(
+      combineLatest(
+        this.authService.doc.subject,
+        (s1 = {} as any, s2 = {} as any) => s1.id === s2.id
+      ));
 }

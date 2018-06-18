@@ -23,7 +23,8 @@ export class AuthGuard implements CanActivate {
             this.router.navigate(['/profile', {id: u.id}]);
           }
         }),
-        map(u => !!u),
+        // map to true so you can still nav even though your not logged in.
+        map(u => true),
       );
   }
 }

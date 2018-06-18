@@ -1,10 +1,17 @@
 <div class="panel">
   <div class="details">
-    <p>{{(profileService.doc.subject | async)?.firstName}} {{(profileService.doc.subject | async)?.lastName}}</p>
+    <p>{{(profileService.doc.subject | async)?.displayName}}</p>
     <p>{{(profileService.doc.subject | async)?.role}}</p>
     <p>{{(profileService.doc.subject | async)?.companyName}}</p>
   </div>
   <div class="user-image"></div>
   <div class="details-spacer"></div>
+</div>
+<div class="bio">
+  <p>{{(profileService.doc.subject | async)?.bio}}</p>
+</div>
+<div class="pull-right" *ngIf="isMyProfile | async">
+  <span></span>
+  <button mat-mini-fab (click)="openProfileModal()"><mat-icon>edit</mat-icon></button>
 </div>
 <hr>

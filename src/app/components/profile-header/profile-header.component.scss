@@ -29,8 +29,24 @@
     }
 
 }
-    hr {
-        width: 50vw;
-        border-style: none;
-        border: 1px solid darken(white, 15%);
+
+hr {
+    width: 50vw;
+    border-style: none;
+    border: 1px solid darken(white, 15%);
+}
+
+
+.pull-right {
+    display: flex;
+    
+    span {
+        flex: 1;
     }
+}
+
+.bio {
+    p {
+        text-align: center;
+    }
+}

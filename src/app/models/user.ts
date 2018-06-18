@@ -5,7 +5,6 @@ export class User implements IIDable {
     email: string;
     photoURL?: string;
     displayName?: string;
-    favoriteColor?: string;
 
     constructor(args: Partial<User>) {
         Object.assign(this, args);

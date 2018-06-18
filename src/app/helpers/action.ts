@@ -1,14 +1,9 @@
 import { BehaviorSubject, empty } from "rxjs";
 import { state } from "@angular/animations";
 
-export interface IActionable<T> {
-    state: T;
-    subject: BehaviorSubject<T>;
-}
+export class Action<T> {
 
-export class Action<T> implements Action<T> {
-
-    private _subject: BehaviorSubject<T> = new BehaviorSubject(undefined);
+    private _subject: BehaviorSubject<T> = new BehaviorSubject<T>(undefined);
 
     get state() {
         return this._subject.getValue();

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PostService } from '../../firebaseDataAccessLayer/post.service';
 import { ProfileService } from '../../firebaseDataAccessLayer/profile.service';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs/operators';
+import { combineLatest, skip } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { EditProfileComponent } from '../modals/edit-profile/edit-profile.component';
 import { AuthService } from '../../firebaseDataAccessLayer/auth.service';
@@ -18,9 +18,9 @@ export class ProfileHeaderComponent implements OnInit {
   constructor(
     public profileService: ProfileService,
     public postService: PostService,
+    public authService: AuthService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private authService: AuthService,
   ) {
     route.params.subscribe(p => this.profileService.getDoc(p['id']));
   }
@@ -49,6 +49,7 @@ export class ProfileHeaderComponent implements OnInit {
   }
 
   isMyProfile = this.profileService.doc.subject.pipe(
+      skip(1),
       combineLatest(
         this.authService.doc.subject,
         (s1 = {} as any, s2 = {} as any) => s1.id === s2.id

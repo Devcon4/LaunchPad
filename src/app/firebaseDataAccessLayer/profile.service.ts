@@ -10,7 +10,8 @@ export class ProfileService extends Network<Profile> {
 
   constructor(@Inject(AngularFirestore) afs: AngularFirestore) {
     super({
-      name: 'Profiles'
+      name: 'Profiles',
+      skipGetList: true
     }, afs);
   }
 }

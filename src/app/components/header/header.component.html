@@ -1,2 +1,3 @@
 <a class="circle-parent" *ngIf="!(authService.doc.subject | async)" matTooltip="Login!" (click)="login()"><mat-icon class="circle">person</mat-icon></a>
 <a class="circle-parent" *ngIf="!!(authService.doc.subject | async)" matTooltip="Logout!" (click)="logout()"><img class="circle" src="{{(authService.doc.subject | async)?.photoURL}}"></a>
+<a class="circle-parent" *ngIf="!!(authService.doc.subject | async)" matTooltip="home" [routerLink]="['/profile', (authService.doc.subject | async)?.id]"><mat-icon>home</mat-icon></a>

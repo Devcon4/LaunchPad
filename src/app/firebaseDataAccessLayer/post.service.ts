@@ -13,7 +13,7 @@ export class PostService extends Network<Post> {
   constructor(@Inject(AngularFirestore) afs: AngularFirestore, @Inject(ProfileService) private profileService: ProfileService) {
     super({
       name: 'Posts',
-      parent: profileService
+      parent: profileService,
     }, afs);
   }
 }

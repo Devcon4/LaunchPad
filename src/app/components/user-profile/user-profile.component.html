@@ -2,6 +2,7 @@
     <div class="center">
         <app-profile-header></app-profile-header>
         <div class="content">
+            <app-profile-create-post *ngIf="isMyProfile | async"></app-profile-create-post>
             <app-profile-post *ngFor="let post of postService.list.subject | async" [post]="post"></app-profile-post>
         </div>
     </div>

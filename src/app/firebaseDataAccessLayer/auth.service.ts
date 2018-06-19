@@ -16,7 +16,8 @@ export class AuthService extends Network<User> {
 
   constructor(@Inject(AngularFirestore) afs: AngularFirestore, private router: Router, private profileService: ProfileService, private afAuth: AngularFireAuth) {
     super({
-      name: 'Users'
+      name: 'Users',
+      skipGetList: true
     }, afs);
 
     this.afAuth.authState.subscribe(u => this.doc.state = this.toUser(u));
@@ -59,7 +60,7 @@ export class AuthService extends Network<User> {
   }
 
   signOut() {
-    this.afAuth.auth.signOut().then(() => {
-    });
+    this.afAuth.auth.signOut();
+    this.doc.state = undefined;
   }
 }

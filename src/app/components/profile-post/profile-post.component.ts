@@ -20,8 +20,6 @@ export class ProfilePostComponent implements OnInit {
   ngOnInit() { }
 
   onClick() {
-    
-
 
     // this.postService.createDoc(new Post({
     //   title: 'Title One',

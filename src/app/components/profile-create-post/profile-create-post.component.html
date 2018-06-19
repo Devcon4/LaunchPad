@@ -1,0 +1,13 @@
+<div class="side-image">
+  <button mat-fab [disabled]="postForm.invalid" (click)="openProfileModal()"><mat-icon>add</mat-icon></button>
+</div>
+<div class="card">
+  <form [formGroup]="postForm">
+    <mat-form-field>
+      <input matInput placeholder="Title" formControlName="title" required>
+    </mat-form-field>
+    <mat-form-field>
+        <textarea cols="3" matInput placeholder="Summary" formControlName="longDesc" required></textarea>
+    </mat-form-field>
+  </form>
+</div>

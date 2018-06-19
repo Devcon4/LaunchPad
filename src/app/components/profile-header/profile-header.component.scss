@@ -26,6 +26,21 @@
         background-color: darken(white, 15%);
         -webkit-clip-path: circle(50% at 50% 50%);
         clip-path: circle(50% at 50% 50%);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a {
+            font-size: 30px;
+            position: relative;
+            left: -107px;
+            top: 51px;
+            color: gray;
+
+            mat-icon {
+                font-size: 8em;
+            }
+        }
     }
 
 }

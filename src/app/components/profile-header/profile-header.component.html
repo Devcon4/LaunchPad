@@ -4,7 +4,12 @@
     <p>{{(profileService.doc.subject | async)?.role}}</p>
     <p>{{(profileService.doc.subject | async)?.companyName}}</p>
   </div>
-  <div class="user-image"></div>
+  <div class="user-image">
+    <!-- <img src="{{(authService.doc.subject | async)?.photoURL}}"> -->
+    <a>
+      <mat-icon>person</mat-icon>
+    </a>
+  </div>
   <div class="details-spacer"></div>
 </div>
 <div class="bio">

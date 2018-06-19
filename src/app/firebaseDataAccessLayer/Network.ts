@@ -2,7 +2,7 @@ import { IIDable } from '../models/IIDable';
 import { Action } from '../helpers/action';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { from, Observable, Subscription } from 'rxjs';
-import { first, tap, filter, take, map } from 'rxjs/operators';
+import { first, tap, filter, take, map, skip } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 interface NetworkConfig<T extends IIDable, U> {
@@ -10,6 +10,7 @@ interface NetworkConfig<T extends IIDable, U> {
     list?: Action<T[]>;
     name: string;
     parent?: U;
+    skipGetList?: boolean;
 }
 
 export abstract class Network<T extends IIDable> {
@@ -37,16 +38,19 @@ export abstract class Network<T extends IIDable> {
         }
 
         if(!environment.production) {
-            this.list.subject.pipe(tap(this.debug)).subscribe();
-            this.doc.subject.pipe(tap(this.debug)).subscribe();
+            // skip the initial undefined assignment.
+            this.list.subject.pipe(skip(1), tap(this.debug("list"))).subscribe();
+            this.doc.subject.pipe(skip(1), tap(this.debug("doc"))).subscribe();
         }
 
-        // list sub in function so it can be overriden ex: pagination.
-        this.getList();
+        if(!config.skipGetList) {
+            // list sub in function so it can be overriden ex: pagination.
+            this.getList();
+        }
     }
 
-    debug = <T>(val: T) => {
-        console.groupCollapsed(`${this.config.name}: `);
+    debug = (type: "doc" | "list") =><T>(val: T) => {
+        console.groupCollapsed(`${this.config.name} ${type}: `);
         console.log(val);
         console.groupEnd();
     }

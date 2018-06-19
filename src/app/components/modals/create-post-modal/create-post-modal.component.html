@@ -1,0 +1,22 @@
+<h4 mat-dialog-title>Create post</h4>
+<mat-dialog-content>
+  <form [formGroup]="postForm">
+    <mat-form-field>
+      <input matInput placeholder="Title" formControlName="title" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Summary" formControlName="longDesc">
+    </mat-form-field>
+    <!-- <mat-form-field>
+      <input matInput placeholder="Intro" formControlName="longDesc">
+    </mat-form-field> -->
+    <mat-form-field>
+      <textarea cols="10" matInput placeholder="Content" formControlName="content"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span></span>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button [disabled]="postForm.invalid" mat-dialog-close (click)="save()">Finish</button>
+  </mat-dialog-actions>

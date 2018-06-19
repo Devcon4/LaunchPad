@@ -1,0 +1,9 @@
+.col {
+    position: fixed;
+        
+    .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}

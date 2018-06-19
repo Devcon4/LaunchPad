@@ -2,7 +2,7 @@ import { IIDable } from '../models/IIDable';
 import { Action } from '../helpers/action';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { from, Observable, Subscription } from 'rxjs';
-import { first, tap, filter, take } from 'rxjs/operators';
+import { first, tap, filter, take, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 interface NetworkConfig<T extends IIDable, U> {
@@ -93,5 +93,9 @@ export abstract class Network<T extends IIDable> {
                 this.createDoc(val, name);
             }
         });
+    }
+
+    exists(name: string) {
+        return this.collection.state.doc(name).snapshotChanges().pipe(tap(console.log), take(1), map(v => v.payload.exists));
     }
 }

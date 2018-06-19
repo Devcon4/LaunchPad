@@ -43,11 +43,15 @@ export class AuthService extends Network<User> {
 
         this.createDoc(user, credential.user.uid);
         
-        let profile = new Profile({
-          displayName: credential.user.displayName,
+        this.profileService.exists(credential.user.uid).subscribe(b => {
+          if(!b) {
+            let profile = new Profile({
+              displayName: credential.user.displayName,
+            });
+    
+            this.profileService.createDoc(profile, credential.user.uid);
+          }
         });
-
-        this.profileService.createDoc(profile, credential.user.uid);
 
         this.getDoc(credential.user.uid);
         return user;

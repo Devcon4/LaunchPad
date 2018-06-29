@@ -7,6 +7,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { ProfileService } from './profile.service';
 import { PostStateService } from './post-state.service';
+import { ContentService } from './content.service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { PostStateService } from './post-state.service';
   providers: [
     PostService,
     ProfileService,
-    PostStateService
+    PostStateService,
+    ContentService
   ]
 })
 export class FirebaseModule { }

@@ -19,6 +19,9 @@ import { EditProfileComponent } from './components/modals/edit-profile/edit-prof
 import { FabComponent } from './components/fab/fab.component';
 import { ProfileCreatePostComponent } from './components/profile-create-post/profile-create-post.component';
 import { CreatePostModalComponent } from './components/modals/create-post-modal/create-post-modal.component';
+import { PostEditorComponent } from './components/post-editor/post-editor.component';
+import { HeaderContentComponent } from './components/contents/header-content/header-content.component';
+import { ParagraphContentComponent } from './components/contents/paragraph-content/paragraph-content.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { CreatePostModalComponent } from './components/modals/create-post-modal/
     EditProfileComponent,
     FabComponent,
     ProfileCreatePostComponent,
-    CreatePostModalComponent
+    CreatePostModalComponent,
+    PostEditorComponent,
+    HeaderContentComponent,
+    ParagraphContentComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -54,6 +60,6 @@ import { CreatePostModalComponent } from './components/modals/create-post-modal/
   ],
   providers: [ ],
   bootstrap: [AppComponent],
-  entryComponents: [ EditProfileComponent, CreatePostModalComponent ]
+  entryComponents: [ EditProfileComponent, CreatePostModalComponent, HeaderContentComponent, ParagraphContentComponent ]
 })
 export class AppModule { }

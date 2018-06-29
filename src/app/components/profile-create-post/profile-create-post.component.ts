@@ -20,7 +20,7 @@ export class ProfileCreatePostComponent implements OnInit {
 
   ngOnInit() { }
 
-  openProfileModal() {
+  openPostModal() {
     this.postService.doc.state = this.postForm.value;
     this.dialog.open(CreatePostModalComponent, {
       minWidth: '25vw',
@@ -30,7 +30,8 @@ export class ProfileCreatePostComponent implements OnInit {
     });
   }
 
-  openProfilePage() {
+  openPostPage() {
+    this.postService.doc.state = this.postForm.value;
     this.router.navigate(['/postEditor']);
   }
 }

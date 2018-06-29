@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, RoutesRecognized, Route } from '@angular/router';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AuthGuard } from './auth.guard';
+import { PostEditorComponent } from './components/post-editor/post-editor.component';
 
 const routes: Routes = [
   // {
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: 'profile/:id',
     component: UserProfileComponent
   },
+  {
+    path: 'postEditor',
+    component: PostEditorComponent
+  }
 ];
 
 @NgModule({

@@ -49,7 +49,7 @@ export abstract class Network<T extends IIDable> {
         }
     }
 
-    debug = (type: "doc" | "list") =><T>(val: T) => {
+    debug = (type: 'doc' | 'list') => <U>(val: U) => {
         console.groupCollapsed(`${this.config.name} ${type}: `);
         console.log(val);
         console.groupEnd();
@@ -60,9 +60,11 @@ export abstract class Network<T extends IIDable> {
     }
 
     getDoc(name: string, state?: Action<T>) {
-        this.document.state = this.collection.state.doc(name);
+        if (!!this.collection.state) {
+            this.document.state = this.collection.state.doc(name);
+        }
         
-        if(state) {
+        if (state) {
             this._docSub = this.document.subject.pipe(filter(d => !!d)).subscribe(d => d.snapshotChanges().subscribe(v => state.state = Object.assign({}, v.payload.data(), {id: v.payload.id}) as T));
         } else {
             if(this._docSub) {

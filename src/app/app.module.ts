@@ -22,6 +22,18 @@ import { CreatePostModalComponent } from './components/modals/create-post-modal/
 import { PostEditorComponent } from './components/post-editor/post-editor.component';
 import { HeaderContentComponent } from './components/contents/header-content/header-content.component';
 import { ParagraphContentComponent } from './components/contents/paragraph-content/paragraph-content.component';
+import { TitleContentComponent } from './components/contents/title-content/title-content.component';
+
+const modals = [
+  EditProfileComponent,
+  CreatePostModalComponent
+];
+
+const contents = [
+  TitleContentComponent,
+  ParagraphContentComponent,
+  HeaderContentComponent
+];
 
 @NgModule({
   declarations: [
@@ -37,7 +49,8 @@ import { ParagraphContentComponent } from './components/contents/paragraph-conte
     CreatePostModalComponent,
     PostEditorComponent,
     HeaderContentComponent,
-    ParagraphContentComponent
+    ParagraphContentComponent,
+    TitleContentComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -60,6 +73,9 @@ import { ParagraphContentComponent } from './components/contents/paragraph-conte
   ],
   providers: [ ],
   bootstrap: [AppComponent],
-  entryComponents: [ EditProfileComponent, CreatePostModalComponent, HeaderContentComponent, ParagraphContentComponent ]
+  entryComponents: [
+    ...modals,
+    ...contents
+  ]
 })
 export class AppModule { }

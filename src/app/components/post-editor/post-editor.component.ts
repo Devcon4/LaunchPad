@@ -4,6 +4,10 @@ import { ContentService } from '../../firebaseDataAccessLayer/content.service';
 import { OperatorFunction, Observable } from 'rxjs';
 import { Content, ContentType, IDynamicable } from '../../models/content';
 import { mergeMap, mergeAll, map, tap, filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { ContentStateService } from '../../firebaseDataAccessLayer/content-state.service';
+import { Post } from '../../models/post';
+import { PostService } from '../../firebaseDataAccessLayer/post.service';
 
 
 @Component({
@@ -14,10 +18,17 @@ import { mergeMap, mergeAll, map, tap, filter } from 'rxjs/operators';
 })
 export class PostEditorComponent implements OnInit {
 
-  constructor(public postState: PostStateService, public contentService: ContentService, private cfr: ComponentFactoryResolver) { }
+  constructor(
+    public postState: PostStateService,
+    public postService: PostService,
+    public contentState: ContentStateService,
+    public contentService: ContentService,
+    private cfr: ComponentFactoryResolver,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
-  @ViewChild('content', { 
-    read: ViewContainerRef 
+  @ViewChild('content', {
+    read: ViewContainerRef
   }) contentRef: ViewContainerRef;
 
   ngOnInit() {
@@ -27,32 +38,50 @@ export class PostEditorComponent implements OnInit {
     //   width: 12
     // }));
 
+    this.activatedRoute.params.subscribe(p => {
+      const id = p['id'];
+
+      if (!id) {
+        if (!this.postState.state) {
+          this.postState.state = new Post({});
+        }
+
+        this.contentState.list.state = [
+          new Content({
+            type: 'Title',
+            text: 'Enter a title!'
+          })
+        ];
+      } else {
+        this.postService.getDoc(id);
+      }
+    });
+
     this.contentService.list.subject.pipe(
       filter(c => !!c && c.length > 0),
       // tap(c => this.contentRef.clear()),
       mergeAll(),
-      map(c => Object.assign(c, {component: ContentType[c.type]})),
+      map(c => Object.assign(c, { component: ContentType[c.type] })),
       this.dynamicRender
     ).subscribe();
 
   }
 
   dynamicRender = <T, U extends IDynamicable<Type<T>>>(obs: Observable<U>) => {
-    
-    let sub = obs.pipe(tap(c => {
-      let compFactory = this.cfr.resolveComponentFactory(c.component);
-      let content = this.contentRef.createComponent(compFactory);
-      content.instance['data'] = c;
-      console.log(content);
+
+    const sub = obs.pipe(tap(c => {
+      const compFactory = this.cfr.resolveComponentFactory(c.component);
+      const contentComp = this.contentRef.createComponent(compFactory);
+      contentComp.instance['data'] = c;
     })).subscribe();
-  
+
     return obs;
   }
 
 }
 
 export function content(key: string) {
-  return <T extends {new(...args:any[]):{}}>(constructor:T) => {
+  return <T extends { new(...args: any[]): {} }>(constructor: T) => {
     Reflect.set(ContentType, key, constructor);
   }
 }

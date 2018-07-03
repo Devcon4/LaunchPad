@@ -6,6 +6,7 @@ import { Post } from '../../models/post';
 import { MatDialog } from '@angular/material';
 import { CreatePostModalComponent } from '../modals/create-post-modal/create-post-modal.component';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-create-post',
@@ -32,6 +33,9 @@ export class ProfileCreatePostComponent implements OnInit {
 
   openPostPage() {
     this.postService.doc.state = this.postForm.value;
-    this.router.navigate(['/postEditor']);
+    this.postService.doc.subject.pipe(take(1)).subscribe(d => this.router.navigate(['/postEditor', d.id]));
+    this.postService.createDoc(this.postForm.value);
+
+    // this.router.navigate(['/postEditor']);
   }
 }

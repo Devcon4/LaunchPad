@@ -23,9 +23,7 @@ export class ProfilePostComponent implements OnInit {
   ngOnInit() { }
 
   onClick() {
-    this.postService.getDoc(this.post.id);
-    this.postService.document.subject.pipe(filter(x => !!x), take(1)).subscribe(x => this.router.navigate(['postEditor']));
-    
+    this.router.navigate(['/postEditor', this.post.id]);
 
     // this.postService.createDoc(new Post({
     //   title: 'Title One',

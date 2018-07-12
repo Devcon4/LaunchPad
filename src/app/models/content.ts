@@ -22,6 +22,7 @@ export class Content implements IIDable{
     public type: string;
     public width: ContentGrid = 12;
     public text?: string = '';
+    public ordinal: number = 0;
 
     constructor(args: Partial<Content>) {
         Object.assign(this, args);

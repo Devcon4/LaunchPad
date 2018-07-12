@@ -1,8 +1,8 @@
 <div class="side-image"><div class="inner"></div></div>
-<div class="card" (click)="onClick()">
+<a class="card" [routerLink]="['/postEditor', (profileService.doc.subject | async)?.id, post?.id]">
   <div class="title">{{post.title}}</div>
   <p class="long-desc">{{post.longDesc}}</p>
-</div>
+</a>
 <!-- 
 <mat-card>
   <mat-card-title>{{post.title}}</mat-card-title>

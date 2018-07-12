@@ -1,0 +1,17 @@
+@import '../../../../theme';
+
+@mixin width-x {
+    @for $i from 1 through 12 {
+        .width-#{$i} {
+            @at-root :host(.width-#{$i}) {
+                width: (100% / 12) * $i;
+            }
+        }
+    }
+}
+
+@include width-x;
+
+label {
+    border-bottom: 2px solid mat-color($mint, 500);
+}

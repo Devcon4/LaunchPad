@@ -1,5 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { content } from '../../post-editor/post-editor.component';
+import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
+import { ContentKey } from '../../post-editor/post-editor.component';
+import { Content } from '../../../models/content';
+import { Action } from '../../../helpers/action';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-title-content',
@@ -7,12 +10,17 @@ import { content } from '../../post-editor/post-editor.component';
   styleUrls: ['./title-content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-@content('Title')
-export class TitleContentComponent implements OnInit {
+@ContentKey('Title')
+export class TitleContentComponent {
 
-  constructor() { }
-
-  ngOnInit() {
+  @Input() content: Action<Content> = new Action();
+  
+  @HostBinding(`class`) widthClass;
+  
+  constructor() {
+    this.content.subject.pipe(filter(c => !!c)).subscribe(c => {
+      console.log('set width!');
+      this.widthClass = `width-${c.width}`;
+    });
   }
-
 }

@@ -1,3 +1,6 @@
-<p>
-  header-content works!
-</p>
+<div>
+  <label>Header</label>
+  <h2>
+    {{(content.subject | async)?.text}}
+  </h2>
+</div>

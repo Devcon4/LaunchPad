@@ -1,3 +1,13 @@
-<p>
-  paragraph-content works!
-</p>
+<div class="content" (mouseleave)="mouseOvered=false" (mouseenter)="mouseOvered=true; fitToContainer()">
+  <label>Paragraph</label>
+  <div class="edit" *ngIf="mouseOvered" >
+    <div #canvasWrapper class="canvas-wrapper" @fadeIn>
+        <canvas #canvas RenderTransformOrigin="0.5,0.5"></canvas>
+    </div>
+    <p contenteditable="true" autofocus matInput placeholder="Summary" [formControl]="paragraph"></p>
+  </div>
+  <p *ngIf="!mouseOvered">
+    {{(content.subject | async)?.text}}
+  </p>
+</div>
+

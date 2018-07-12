@@ -15,7 +15,7 @@ const routes: Routes = [
     component: UserProfileComponent
   },
   {
-    path: 'postEditor/:id',
+    path: 'postEditor/:profileId/:id',
     component: PostEditorComponent
   }
 ];

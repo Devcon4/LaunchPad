@@ -1,18 +1,25 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { content } from '../../post-editor/post-editor.component';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, HostBinding, AfterViewInit, OnChanges } from '@angular/core';
+import { ContentKey } from '../../post-editor/post-editor.component';
+import { Content } from '../../../models/content';
+import { empty, Observable } from 'rxjs';
+import { Action } from '../../../helpers/action';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-content',
   templateUrl: './header-content.component.html',
-  styleUrls: ['./header-content.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./header-content.component.scss']
 })
-@content('header')
-export class HeaderContentComponent implements OnInit {
+@ContentKey('header')
+export class HeaderContentComponent {
 
-  constructor() { }
+  @Input() content: Action<Content> = new Action();
 
-  ngOnInit() {
+  @HostBinding(`class`) widthClass;
+  
+  constructor() {
+    this.content.subject.pipe(filter(c => !!c)).subscribe(c => {
+      this.widthClass = `width-${c.width}`;
+    });
   }
-
 }

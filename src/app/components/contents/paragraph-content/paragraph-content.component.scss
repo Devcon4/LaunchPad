@@ -1,0 +1,43 @@
+@import '../../../../theme';
+
+@mixin width-x {
+    @for $i from 1 through 12 {
+        .width-#{$i} {
+            @at-root :host(.width-#{$i}) {
+                width: (100% / 12) * $i;
+            }
+        }
+    }
+}
+
+@include width-x;
+
+label {
+    color: mat-color($darkGray, 200);
+    border-bottom: 2px solid mat-color($mint, 500);
+}
+
+p {
+    padding: 8px;
+    margin-left: 8px;
+    z-index: 1000;
+    outline: none;
+}
+
+.canvas-wrapper {
+    width: 100%;
+    height: calc(100% - 24px);
+
+    z-index: 10;
+    pointer-events: none;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    padding-top: 24px;
+
+    // filter: drop-shadow(0px 3px 3px mat-color($darkGray, 200));
+}
+
+.content {
+    position: relative;
+}

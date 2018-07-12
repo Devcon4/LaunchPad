@@ -1,0 +1,23 @@
+@import '../../../../theme';
+
+@mixin width-x {
+    @for $i from 1 through 12 {
+        .width-#{$i} {
+            @at-root :host(.width-#{$i}) {
+                width: (100% / 12) * $i;
+            }
+        }
+    }
+}
+
+@include width-x;
+
+label {
+    color: mat-color($darkGray, 200);
+    border-bottom: 2px solid mat-color($mint, 500);
+}
+
+h2 {
+    margin-left: 8px;
+    color: mat-color($darkGray, 600);
+}

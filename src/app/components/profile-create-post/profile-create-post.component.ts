@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material';
 import { CreatePostModalComponent } from '../modals/create-post-modal/create-post-modal.component';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { ContentService } from '../../firebaseDataAccessLayer/content.service';
+import { Content } from '../../models/content';
 
 @Component({
   selector: 'app-profile-create-post',
@@ -15,9 +17,9 @@ import { take } from 'rxjs/operators';
 })
 export class ProfileCreatePostComponent implements OnInit {
 
-  postForm = createFormGroup(new Post({}));
+  postForm = createFormGroup({...new Post({}), title: ''});
 
-  constructor(public postService: PostService, private dialog: MatDialog, private router: Router) { }
+  constructor(public postService: PostService, public contentService: ContentService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() { }
 
@@ -33,6 +35,17 @@ export class ProfileCreatePostComponent implements OnInit {
 
   openPostPage() {
     this.postService.doc.state = this.postForm.value;
+    console.log(this.postForm.value);
+    this.contentService.list.state = [
+      new Content({
+        type: 'Title',
+        text: this.postForm.value['title']
+      }),
+      new Content({
+        type: 'Paragraph',
+        text: this.postForm.value['longDesc']
+      })
+    ];
     this.postService.doc.subject.pipe(take(1)).subscribe(d => this.router.navigate(['/postEditor', d.id]));
     this.postService.createDoc(this.postForm.value);
 

@@ -1,0 +1,51 @@
+@import '../../../theme';
+
+.center {
+    display: grid;
+
+    // grid: auto / [column-start] "gutterLeft content gutterRight" 50vw [column-end];
+
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "gutterLeft content gutterRight";
+
+    .gutterLeft {
+        grid-area: gutterLeft;
+    }
+
+    .content {
+        grid-area: content;
+        background-color: white;
+        padding: 25px;
+        margin: 15px;
+        margin-top: 20vh;
+        filter: drop-shadow(0px 3px 3px lightgray);
+    }
+
+    .gutterRight {
+        grid-area: gutterRight;
+    }
+}
+
+.background {
+    position: absolute;
+    width: 100vw;
+    height: 25vh;
+    background-color: mat-color($mint, 300);
+    top: 0;
+    right: 0;
+    z-index: -1;
+    filter: drop-shadow(3px 0px 6px gray);
+}
+
+app-content-fab {
+    position: absolute;
+    top: calc(25% - 28px);
+    left: 75%;
+}
+
+.content {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+}

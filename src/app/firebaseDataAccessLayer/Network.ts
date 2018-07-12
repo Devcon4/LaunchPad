@@ -33,9 +33,8 @@ export abstract class Network<T extends IIDable> {
 
         if (config.parent) {
             config.parent.document.subject.pipe(filter(d => !!d)).subscribe(d => this.collection.state = d.collection(config.name));
-        } else {
-            this.collection.state = afs.collection(config.name);
         }
+        this.collection.state = afs.collection(config.name);
 
         if(!environment.production) {
             // skip the initial undefined assignment.
@@ -60,9 +59,7 @@ export abstract class Network<T extends IIDable> {
     }
 
     getDoc(name: string, state?: Action<T>) {
-        if (!!this.collection.state) {
-            this.document.state = this.collection.state.doc(name);
-        }
+        this.document.state = this.collection.state.doc(name);
         
         if (state) {
             this._docSub = this.document.subject.pipe(filter(d => !!d)).subscribe(d => d.snapshotChanges().subscribe(v => state.state = Object.assign({}, v.payload.data(), {id: v.payload.id}) as T));
@@ -75,6 +72,7 @@ export abstract class Network<T extends IIDable> {
     }
 
     createDoc(val: T, id?: string) {
+        console.log(val);
         // Maybe auto fetch data? Would have to know if I needed to update list vs doc.
         if (!!id) {
             this.collection.state.doc(id).set(Object.assign({}, val));

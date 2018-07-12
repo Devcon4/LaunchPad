@@ -1,0 +1,9 @@
+<button mat-fab [color]="'accent'" (click)="toggleDial()">
+  <mat-icon *ngIf="!toggled">add</mat-icon>
+  <mat-icon *ngIf="toggled">edit</mat-icon>
+</button>
+<div class="speed-dial" *ngIf="toggled">
+  <button mat-mini-fab matTooltipPosition="right" (click)="addHeader()" matTooltip="Header"><mat-icon>title</mat-icon></button>
+  <button mat-mini-fab matTooltipPosition="right" (click)="addParagraph()" matTooltip="Paragraph"><mat-icon>notes</mat-icon></button>
+  <button mat-mini-fab matTooltipPosition="right" (click)="addImage()" matTooltip="Image"><mat-icon>image</mat-icon></button>
+</div>

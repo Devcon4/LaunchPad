@@ -2,7 +2,7 @@ import { MatCardModule, MatAutocompleteModule, MatCheckboxModule, MatMenuModule,
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,13 +16,14 @@ import { ProfilePostComponent } from './components/profile-post/profile-post.com
 import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EditProfileComponent } from './components/modals/edit-profile/edit-profile.component';
-import { FabComponent } from './components/fab/fab.component';
 import { ProfileCreatePostComponent } from './components/profile-create-post/profile-create-post.component';
 import { CreatePostModalComponent } from './components/modals/create-post-modal/create-post-modal.component';
 import { PostEditorComponent } from './components/post-editor/post-editor.component';
 import { HeaderContentComponent } from './components/contents/header-content/header-content.component';
 import { ParagraphContentComponent } from './components/contents/paragraph-content/paragraph-content.component';
 import { TitleContentComponent } from './components/contents/title-content/title-content.component';
+import { ContentFabComponent } from './components/content-fab/content-fab.component';
+import { ContenteditableDirective } from 'ng-contenteditable';
 
 const modals = [
   EditProfileComponent,
@@ -44,13 +45,14 @@ const contents = [
     ProfileHeaderComponent,
     HeaderComponent,
     EditProfileComponent,
-    FabComponent,
     ProfileCreatePostComponent,
     CreatePostModalComponent,
     PostEditorComponent,
     HeaderContentComponent,
     ParagraphContentComponent,
-    TitleContentComponent
+    TitleContentComponent,
+    ContentFabComponent,
+    ContenteditableDirective
   ],
   imports: [
     BrowserAnimationsModule,
@@ -58,6 +60,7 @@ const contents = [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
+    FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
     MatCardModule,
